@@ -21,6 +21,7 @@ document.getElementById('score-1').textContent = 0;
 document.getElementById('current-0').textContent = 0;
 document.getElementById('current-1').textContent = 0;
 
+//-------------------Roll Dice Button-------------------------------------------------------------
 document.querySelector('.btn-roll').addEventListener('click', function(){
   var dice = Math.floor(Math.random() * 6) + 1;
   diceDOM = document.querySelector('.dice');
@@ -36,18 +37,24 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
 
 })
 
+//---------------------Hold Button------------------------------------------------------------------
 document.querySelector('.btn-hold').addEventListener('click', function(){
 
   scores[activePlayer] += roundScore;
   document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
 
+  //----------------------winner-------------------------------------------------------------------
   if (scores[activePlayer] >= 10) {
-    document.getElementById('name-' + activePlayer).textContent = 'Winner';
+    document.getElementById('name-' + activePlayer).innerHTML = '<strong>' + 'Winner' + '</strong>';
+    document.getElementById('name-' + activePlayer).style.backgroundColor = '#9ad899';
+    document.getElementById('name-' + activePlayer).style.color = '#fff';
   }
 
   nextPlayer();
 });
 
+
+//-------------------------New Player Function-----------------------------
 function nextPlayer(){
   document.getElementById('current-' + activePlayer).textContent = 0;
     activePlayer == 0 ? activePlayer = 1 : activePlayer = 0;
@@ -59,12 +66,24 @@ function nextPlayer(){
     document.querySelector('.dice').style.display = 'none';
 }
 
+
+//---------------------------- New Game Button------------------------------
 document.querySelector('.btn-new').addEventListener('click', function(){
+
   document.getElementById('score-0').textContent = 0;
   document.getElementById('score-1').textContent = 0;
   document.getElementById('current-0').textContent = 0;
   document.getElementById('current-1').textContent = 0;
+
   activePlayer = 0;
   document.querySelector('.player-0-panel').classList.add('active');
-  document.getElementById('name-' + activePlayer).textContent = 'PLAYER 1';
+
+  document.getElementById('name-0').textContent = 'PLAYER 1';
+  document.getElementById('name-1').textContent = 'PLAYER 2';
+  document.querySelector('.player-1-panel').classList.remove('active');
+  
+  document.querySelector('.dice').style.display = 'none';
+  
+  document.getElementById('name-' + activePlayer).style.backgroundColor = '#fff';
+  document.getElementById('name-' + activePlayer).style.color = 'black';
 })
